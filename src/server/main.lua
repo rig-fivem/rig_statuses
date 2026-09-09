@@ -1,10 +1,6 @@
 --- @file src/server/main.lua
 --- @description Main server side handling
 
---- @section Imports
-
-local _callbacks = exports.rig:require("src.server.modules.callbacks")
-
 --- @section RIG Events
 
 AddEventHandler("rig:server:player_died", function(source)
@@ -55,7 +51,7 @@ end)
 
 --- @section Callbacks
 
-_callbacks.register_callback("rig_statuses:server:validate_revive", function(source, data, cb)
+exports.rig:register_callback("rig_statuses:server:validate_revive", function(source, data, cb)
     local is_pending = exports.rig:get_player_status(source, "pending_revive") == true
     if is_pending then
         exports.rig:set_player_status(source, "pending_revive", false)
@@ -64,7 +60,7 @@ _callbacks.register_callback("rig_statuses:server:validate_revive", function(sou
     cb({ valid = is_pending })
 end)
 
-_callbacks.register_callback("rig_statuses:server:validate_respawn", function(source, data, cb)
+exports.rig:register_callback("rig_statuses:server:validate_respawn", function(source, data, cb)
     local is_dead = exports.rig:is_player_dead(source) == true
     cb({ valid = is_dead })
 end)

@@ -3,8 +3,6 @@
 
 --- @section Imports
 
-local _callbacks = exports.rig:require("src.client.modules.callbacks")
-
 local _utils = require("src.client.modules.utils")
 local _keys = require("src.client.modules.keys")
 local _anim = require("src.client.modules.animations")
@@ -173,7 +171,7 @@ RegisterNetEvent("rig_statuses:client:player_downed", function(data)
 end)
 
 RegisterNetEvent("rig_statuses:client:respawn_player", function()
-    _callbacks.trigger_callback("rig_statuses:server:validate_respawn", {}, function(response)
+    exports.rig:trigger_callback("rig_statuses:server:validate_respawn", {}, function(response)
         if not response or not response.valid then
             log("info", "[respawn] validate failed - response: " .. tostring(response and response.valid))
             return
@@ -200,7 +198,7 @@ end)
 
 RegisterNetEvent("rig_statuses:client:revive_player", function()
 
-    _callbacks.trigger_callback("rig_statuses:server:validate_revive", {}, function(response)
+exports.rig:trigger_callback("rig_statuses:server:validate_revive", {}, function(response)
         if not response or not response.valid then
             log("info", "[revive] validate failed - response: " .. tostring(response and response.valid))
             return
